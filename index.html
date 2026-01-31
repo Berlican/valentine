@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veux-tu être ma Valentine ? 💕</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Cœurs flottants en arrière-plan */
+        .heart-bg {
+            position: absolute;
+            font-size: 30px;
+            opacity: 0.3;
+            animation: float 6s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+        }
+
+        .container {
+            text-align: center;
+            background: white;
+            padding: 60px 40px;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            position: relative;
+            z-index: 10;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #e91e63;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .emoji {
+            font-size: 80px;
+            margin: 20px 0;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .question {
+            font-size: 1.8em;
+            color: #333;
+            margin: 30px 0;
+            font-weight: 600;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 40px;
+            position: relative;
+            min-height: 60px;
+        }
+
+        button {
+            padding: 15px 40px;
+            font-size: 1.3em;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        #yesBtn {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+
+        #yesBtn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(245, 87, 108, 0.4);
+        }
+
+        #noBtn {
+            background: #e0e0e0;
+            color: #666;
+            position: absolute;
+        }
+
+        /* Animation de célébration */
+        .celebration {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .celebration.active {
+            display: flex;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .celebration h1 {
+            font-size: 5em;
+            color: white;
+            animation: bounceIn 1s;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .celebration .hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .flying-heart {
+            position: absolute;
+            font-size: 40px;
+            animation: flyUp 3s infinite;
+            opacity: 0;
+        }
+
+        @keyframes flyUp {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .celebration .message {
+            font-size: 2em;
+            color: white;
+            margin-top: 30px;
+            animation: slideUp 1s 0.5s both;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Cœurs flottants en arrière-plan -->
+    <div class="heart-bg" style="top: 10%; left: 10%;">💕</div>
+    <div class="heart-bg" style="top: 20%; right: 15%; animation-delay: 1s;">❤️</div>
+    <div class="heart-bg" style="bottom: 15%; left: 20%; animation-delay: 2s;">💖</div>
+    <div class="heart-bg" style="bottom: 25%; right: 10%; animation-delay: 1.5s;">💗</div>
+
+    <div class="container">
+        <div class="emoji">🌹</div>
+        <h1>Lucie, ma femme, ma reine, mon coeur, mon monde..</h1>
+        <p class="question">Veux-tu être ma Valentine ? 💕</p>
+        
+        <div class="buttons">
+            <button id="yesBtn">Oui ! 😍</button>
+            <button id="noBtn">Non</button>
+        </div>
+    </div>
+
+    <!-- Écran de célébration -->
+    <div class="celebration" id="celebration">
+        <div class="hearts" id="heartsContainer"></div>
+        <h1>YEEEEEEEEEEEEESSSSSSSSSSS </h1>
+        <p class="message">Je t'aime mon doudou j'ai trop hâte !! ✨</p>
+    </div>
+
+    <script>
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const celebration = document.getElementById('celebration');
+        const heartsContainer = document.getElementById('heartsContainer');
+
+        // Fonction pour déplacer le bouton "Non"
+        noBtn.addEventListener('mouseenter', () => {
+            const container = document.querySelector('.buttons');
+            const containerRect = container.getBoundingClientRect();
+            
+            const maxX = window.innerWidth - noBtn.offsetWidth - 100;
+            const maxY = window.innerHeight - noBtn.offsetHeight - 100;
+            
+            const randomX = Math.random() * maxX;
+            const randomY = Math.random() * maxY;
+            
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+        });
+
+        // Aussi pour les tentatives de clic sur mobile
+        noBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            const maxX = window.innerWidth - noBtn.offsetWidth - 100;
+            const maxY = window.innerHeight - noBtn.offsetHeight - 100;
+            
+            const randomX = Math.random() * maxX;
+            const randomY = Math.random() * maxY;
+            
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+        });
+
+        // Célébration quand elle clique sur "Oui"
+        yesBtn.addEventListener('click', () => {
+            celebration.classList.add('active');
+            
+            // Créer des cœurs volants
+            for (let i = 0; i < 30; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.className = 'flying-heart';
+                    heart.textContent = ['❤️', '💕', '💖', '💗', '💝'][Math.floor(Math.random() * 5)];
+                    heart.style.left = Math.random() * 100 + '%';
+                    heart.style.animationDelay = Math.random() * 2 + 's';
+                    heart.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                    heartsContainer.appendChild(heart);
+                }, i * 100);
+            }
+
+            // Confettis sonores (vibration sur mobile)
+            if (navigator.vibrate) {
+                navigator.vibrate([200, 100, 200, 100, 200]);
+            }
+        });
+    </script>
+</body>
+</html>
